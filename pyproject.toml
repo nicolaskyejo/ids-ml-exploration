@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "ids-ml-exploration"
+version = "0.0.1"
+description = "Model for recognizing malicious traffic"
+authors = ["nicolas <nicolas.kyejo@metropolia.fi>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+numpy = "1.24.2"
+scikit-learn = "1.2.1"
+pandas = "1.5.3"
+matplotlib = "3.7.1"
+skops = "^0.5.0"  # saving models
+notebook =  "*"
+cicflowmeter = { git = "https://gitlab.com/nicolaskyejo/cicflowmeter.git", tag = "v0.1.7" }
+jupyter = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+isort = "*"
+mypy = "*"
+black = "*"
+pylint = "*"
+bandit = { extras = ["toml"], version = "^1.7.5" }
+
+[tool.black]
+include_trailing_comma = 'True'
+line-length = 120
+include = './*.py'
+
+[tool.mypy]
+ignore_errors = 'False'
+ignore_missing_imports = 'True'
+strict_optional = 'True'
+python_version = '3.10'
+
+plugins = 'numpy.typing.mypy_plugin'
+
+[tool.pylint."messages control"]
+confidence = ["HIGH", "CONTROL_FLOW", "INFERENCE", "INFERENCE_FAILURE", "UNDEFINED"]
+disable = ["raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message",
+    "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead", "line-too-long", "fixme",
+    "missing-function-docstring", "missing-module-docstring", "import-error"]
+enable = ["c-extension-no-member"]
+
+[tool.bandit]
+exclude_dirs = [".mypy_cache", "__pycache__"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
